@@ -42,30 +42,30 @@ get_user_sessions()：提取使用者歷史紀錄。
 由 PromptFormatter 將使用者輸入與上下文整合成可供 LLM 理解的 system prompt。  
 
 **config2.py – 全域設定層（Configuration Layer）**  
-以 dataclass 結構化設定：
-模型參數（ModelConfig）
-生成參數（GenerationConfig）
-提示控制（PromptConfig）
-記憶與資料庫設定（MemoryConfig）
-UI 顯示設定（UIConfig）
+以 dataclass 結構化設定：  
+模型參數（ModelConfig）  
+生成參數（GenerationConfig）  
+提示控制（PromptConfig）  
+記憶與資料庫設定（MemoryConfig）  
+UI 顯示設定（UIConfig）  
 
----
-**執行流程**
+---  
+**執行流程**  
 
-啟動主程式：
-streamlit run main_min.py
+啟動主程式：  
+streamlit run main_min.py  
 
-**功能**
+**功能**  
 
-系統載入：
-初始化模型與 tokenizer。
-建立 PostgreSQL 資料庫連線池。
-從資料庫載入上次 session 摘要至記憶。
+系統載入：  
+初始化模型與 tokenizer。  
+建立 PostgreSQL 資料庫連線池。  
+從資料庫載入上次 session 摘要至記憶。  
 
-使用者對話：
-輸入訊息 → 由 PromptFormatter 生成 system prompt。
-模型生成回覆 → 抽取 emotion/context/belief/stage。
+使用者對話：  
+輸入訊息 → 由 PromptFormatter 生成 system prompt。  
+模型生成回覆 → 抽取 emotion/context/belief/stage。  
 
-記憶與分析：
-自動記錄對話輪次。
-在「結案階段」自動呼叫 save_session() 儲存歷史摘要。
+記憶與分析：  
+自動記錄對話輪次。  
+在「結案階段」自動呼叫 save_session() 儲存歷史摘要。  
