@@ -187,16 +187,23 @@ class PromptFormatter:
 
 
     # === 向下相容接口 ===
-    def format_conversation(self, messages: List[Dict[str, str]], use_template: bool = True) -> List[Dict[str, str]]:
+    def format_conversation(self, messages: List[Dict[str, str]], use_template: bool = True, stage: str = None) -> List[Dict[str, str]]:
         """
         與舊版相容：模擬舊有格式化邏輯。
         預設使用澄清問題階段。
         """
         user_input = messages[-1]["content"] if messages else ""
         conversation_history = messages[:-1] if len(messages) > 1 else []
+        current_stage = stage or "澄清問題"
+        if use_template:
+            system_prompt = self.format_with_stage(user_input, current_stage, conversation_history)
+        else:
+            # 若不使用模板，只回傳一般格式
+            system_prompt = f"使用者輸入：{user_input}"
+
         return [{
             "role": "system",
-            "content": self.format_with_stage(user_input, stage, conversation_history)
+            "content": system_prompt
         }]
 
 

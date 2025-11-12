@@ -61,8 +61,9 @@ class QwenAgent:
         """生成回覆、分析與記憶更新"""
         # 1️⃣ 格式化對話內容
         if self.config.prompt.use_socratic_template:
+            current_stage = self.memory.current_stage
             formatted_messages = self.prompt_formatter.format_conversation(
-                messages, use_template=True
+                messages, use_template=True, stage=current_stage
             )
         else:
             formatted_messages = messages
